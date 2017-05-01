@@ -1,0 +1,38 @@
+﻿@model OrderItems.Models.OrderItem
+
+@{
+    ViewBag.Title = "OrderItem";
+}
+
+<p>
+    <div>
+        @Html.DropDownList("orderId", "OrderId")
+    </div>
+    <div>
+        @Html.EditorFor(m => m.Order.Buyer)
+    </div>
+        <div id="items">
+
+        </div>
+    @Html.ActionLink("Submit", "Save")
+</p>
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#orderId").on("change", function () {
+            var orderId = $('#orderId').val();
+            $.ajax({
+                url: "/OrderItem/Create",
+                type: "GET",
+                data: { orderId: orderId ,}
+            })
+                .done(function (partialViewResult) {
+                    $("#items").html(partialViewResult);
+                });
+        });
+    });
+</script>*@
+
+
+

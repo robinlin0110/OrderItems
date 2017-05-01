@@ -1,0 +1,56 @@
+﻿@model OrderItems.Models.OrderItem
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.Id = new List<SelectListItem> {
+            new SelectListItem { Text = "1", Value = "1"},
+            new SelectListItem { Text = "2", Value = "2"}
+        };
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "OrderItem", FormMethod.Post))
+{
+    <div>
+        @Html.DropDownList("id", "Id")
+    </div>
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>OrderItem</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(m => m.OrderItemId)
+        @Html.HiddenFor(m => m.Order.OrderId)
+        @Html.EditorFor(m => m.Order.Buyer)
+
+        <div id="listDiv"></div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#id").on("change", function () {
+            var val = $('#id').val();
+            $.ajax({
+                url: "/OrderItem/ListPartial",
+                type: "GET",
+                data: { i: val }
+            })
+            .done(function(partialViewResult) {
+                $("#listDiv").html(partialViewResult);
+            });
+        });
+    });
+</script>

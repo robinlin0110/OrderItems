@@ -1,0 +1,20 @@
+﻿@model OrderItems.Models.OrderItem
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        @for (int i = 0; i < Model.Items.Count(); i++)
+        {
+            <tr>
+                @Html.HiddenFor(m => m.Items[i].ItemId)
+                <th>
+                    @Html.EditorFor(m => m.Items[i].Name)
+                </th>
+                <th>
+                    @Html.EditorFor(m => m.Items[i].Price)
+                </th>
+            </tr>
+        }
+    </table>
